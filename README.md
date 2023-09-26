@@ -6,4 +6,4 @@ This code taken 4-5 hours to complete
 
 Plese support my Skill.
 
-Plase follow the Instruction
+Plase follow the Instructions 
