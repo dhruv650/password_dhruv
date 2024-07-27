@@ -1,6 +1,6 @@
 import subprocess
-import Passwords as pd
-# import time
+from Passwords import Passwords  # Make sure the Passwords class is in a file named Passwords.py
+
 def unlock_device_with_password(password):
     # Input the password via adb shell input text
     cmd_input_password = f"adb shell input text {password}"
@@ -10,40 +10,64 @@ def unlock_device_with_password(password):
     cmd_press_enter = "adb shell input keyevent 66"
     subprocess.run(cmd_press_enter, shell=True)
 
-    # Wait for a brief moment (adjust as needed)
-    # time.sleep(1)
-def choose_Type():
-    a = chr(9673)
-    b = chr(9445)
-    print(f"{a} For unlocking 4-digit Number :- 1")
-    print(f"{a} For unlocking 6-digit Number :- 2")
-    print(f"{a} For unlocking small alphabet :- 3")
-    print(f"{a} For unlocking Big alphabet :- 4")
-    print(f"{a} For unlocking Mixed-digit alphabet :- 5")
-    user_input = int(input(f"{b} Enter your unlock Mode: "))
-    if user_input == 1:
+def unlock_device_menu():
+    passwd = Passwords()
+
+    menu = """
+    ▓▓▓ Device Unlocker Menu ▓▓▓
+
+    1. Unlock with 4-digit Number
+    2. Unlock with 6-digit Number
+    3. Unlock with Small Alphabet Password
+    4. Unlock with Big Alphabet Password
+    5. Unlock with Mixed-Character Password
+
+    Select an option (1-5):
+    """
+
+    choice = int(input(menu))
+
+    if choice == 1:
         while True:
-            four = pd.Four_digit()
-            unlock_device_with_password(four)
-    elif user_input == 2:
+            password = passwd.Four_digit()
+            unlock_device_with_password(password)
+
+    elif choice == 2:
         while True:
-            six = pd.Six_digit()
-            unlock_device_with_password(six)
-    elif user_input == 3:
-        lenth = int(input("What is the length of your password:- "))
+            password = passwd.Six_digit()
+            unlock_device_with_password(password)
+
+    elif choice == 3:
+        length = int(input("Enter the length of your password: "))
         while True:
-            Small = pd.Small_Chractes(lenth)
-            unlock_device_with_password(Small)
-    elif user_input == 4:
-        lenth = int(input("What is the length of your password:- "))
+            password = passwd.Small_Chractes(length)
+            unlock_device_with_password(password)
+
+    elif choice == 4:
+        length = int(input("Enter the length of your password: "))
         while True:
-            Big = pd.Big_Chractes(lenth)
-            unlock_device_with_password(Big)
-    elif user_input == 5:
-        lenth = int(input("What is the length of your password:- "))
+            password = passwd.Big_Chractes(length)
+            unlock_device_with_password(password)
+
+    elif choice == 5:
+        length = int(input("Enter the length of your password: "))
         while True:
-            mix = pd.mix_Chractes(lenth)
-            unlock_device_with_password(mix)
+            password = passwd.mix_Chractes(length)
+            unlock_device_with_password(password)
+
     else:
         print("Invalid Choice")
-choose_Type()
+
+if __name__ == "__main__":
+    adb = input("Are you connected with ADB y/n: ").lower()
+    if adb == "y":
+        unlock_device_menu()
+    else:
+        pwd = Passwords()
+        print(f" Unique Password -{pwd.Unique_password()}")
+        print(f" Four Digit - {pwd.Four_digit()}")
+        print(f" Six Digit - {pwd.Six_digit()}")
+        print(f" Small Character - {pwd.Small_Chractes(10)}")
+        print(f" Big Chracter -{pwd.Big_Chractes(10)}")
+        print(f" Mix Chracters - {pwd.mix_Chractes(10)}")
+        print(f" Random Phone Number - {pwd.Phone_number()}")

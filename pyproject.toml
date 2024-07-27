@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "repl-nix-passworddhruv"
+version = "0.1.0"
+description = ""
+authors = ["Dhruv Sharma <dhruv07domain.com@gmail.com>"]
+readme = "README.md"
+packages = [{include = "repl_nix_passworddhruv"}]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+requests = "^2.32.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
